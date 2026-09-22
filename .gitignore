@@ -1,7 +1,6 @@
 # --- Rust / Cargo ---
 /target/
 **/target/
-Cargo.lock
 **/*.rs.bk
 *.pdb
 
@@ -14,14 +13,14 @@ keys/
 *-keypair.json
 **/*-keypair.json
 .idl/
-target/deploy/
-target/idl/
-target/types/
+target/deploy/*.so
 
-# --- Node / Next.js (frontend) ---
+# --- Node / Yarn / Next.js ---
 node_modules/
 .pnp
 .pnp.js
+.yarn/
+.yarn/install-state.gz
 .next/
 out/
 build/
@@ -66,4 +65,3 @@ coverage/
 *.bak
 *.tmp
 .vercel/
-.DS_Store

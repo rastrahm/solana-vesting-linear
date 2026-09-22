@@ -1,0 +1,23 @@
+[package]
+name = "solana_vesting_linear"
+version = "0.1.0"
+description = "Linear token vesting with cliff and revocation (Anchor)"
+edition = "2021"
+
+[package.metadata.solana]
+tools-version = "v1.52"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "solana_vesting_linear"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = "0.31.1"

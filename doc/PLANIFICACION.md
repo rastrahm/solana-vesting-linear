@@ -11,8 +11,8 @@ Programa de vesting lineal de tokens en Solana (Anchor + SPL Token / Token-2022)
 
 | Fase | Nombre | Entregable principal | Estado |
 |------|--------|----------------------|--------|
-| 0 | Bootstrap del monorepo | Workspace Anchor + estructura | ⏳ Pendiente de autorización |
-| 1 | Estado on-chain y errores | `VestingAccount`, errores, layout `repr(C)` | ⏳ Pendiente |
+| 0 | Bootstrap del monorepo | Workspace Anchor + estructura | ✅ Completada |
+| 1 | Estado on-chain y errores | `VestingAccount`, errores, layout `repr(C)` | ⏳ Pendiente de autorización |
 | 2 | Instruction `initialize` | Crear vesting + vault PDA + depósito | ⏳ Pendiente |
 | 3 | Instruction `claim` | Liberación lineal con `Clock` | ⏳ Pendiente |
 | 4 | Instruction `cancel` | Revocación y cierre de cuentas | ⏳ Pendiente |
@@ -35,9 +35,14 @@ Programa de vesting lineal de tokens en Solana (Anchor + SPL Token / Token-2022)
 - Scripts: `anchor build`, `anchor test` (smoke).
 
 **Criterios de aceptación:**
-- [ ] `anchor build` compila.
-- [ ] Test vacío/smoke pasa con `anchor test`.
-- [ ] `.gitignore` respeta keys, `.anchor`, `target`, `node_modules`.
+- [x] `anchor build` compila.
+- [x] Test vacío/smoke pasa con `anchor test`.
+- [x] `.gitignore` respeta keys, `.anchor`, `target`, `node_modules`.
+
+**Notas de entorno (Fase 0):**
+- Node **≥ 20.18** (`.nvmrc` → 20). Package manager: **npm**.
+- Platform-tools SBF: **v1.52** (`[package.metadata.solana] tools-version` en el `Cargo.toml` del programa) — evita crates `edition2024` incompatibles con tools v1.48.
+- Program ID localnet: `33KBw8PDvX4nSyhZHBg8xMZmpUvuHpxN7UhbsAyz7sba` (keypair en `target/deploy/`, gitignored).
 
 **No incluye:** lógica de vesting ni frontend.
 
@@ -220,4 +225,4 @@ F6 puede empezar en paralelo tras F2 (IDL mínimo), pero F7 requiere F3–F4 est
 
 ## Próximo paso
 
-**Autoriza la Fase 0** (o la fase que indiques) para comenzar la implementación.
+**Fase 0 completada.** Autoriza la **Fase 1** (estado on-chain + errores) para continuar.
