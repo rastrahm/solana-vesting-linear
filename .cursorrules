@@ -1,0 +1,98 @@
+# .cursorrules — solana-vesting-linear
+
+## MODULE OVERVIEW
+Focus on building a linear token vesting program with cliff periods and revocation support in Solana using Rust, Anchor, and SPL Token / Token-2022 interfaces. Enforce strict byte-level alignment, C-ABI memory layout, Clock sysvar validation, deterministic PDA state layouts, mitigations based on Sealevel Attack patterns, and frontend accessibility features (Help module + Light/Dark theme switch).
+
+---
+
+## 1. TECHNICAL CONSTRAINTS & STACK
+
+- Framework: Anchor 0.30+ compatible syntax.
+- Language: Rust 1.75+ targeting BPF/SBF.
+- Token Program: Use anchor_spl::token_interface (TokenInterface, Mint, TokenAccount) to support both spl-token and spl-token-2022.
+- Clock Sysvar: Read current time via Clock::get()?.unix_timestamp. Avoid trusting client-passed timestamp arguments.
+
+---
+
+## 2. BYTE-LEVEL OPTIMIZATION & MEMORY LAYOUT
+
+- repr(C) ABI Control: Force strict C-ABI layout on all state structs (#[repr(C)]) to prevent Rust compiler field reordering, ensuring zero runtime penalty during byte deserialization on BPF runtime.
+- Exact Size Allocation: Derive account space statically via Anchor's #[derive(InitSpace)]: 8 (Discriminator) + VestingAccount::INIT_SPACE. Zero arbitrary padding, zero excess space allocated.
+- Strict Byte Alignment (Descending Size Rule): Group fields strictly by byte alignment boundaries (8-byte primitives first, followed by 1-byte booleans/u8) to eliminate internal struct padding.
+
+Struct definition target:
+
+#[account]
+#[repr(C)]
+#[derive(InitSpace)]
+pub struct VestingAccount {
+    pub sender: Pubkey,          // 32 bytes
+    pub beneficiary: Pubkey,     // 32 bytes
+    pub mint: Pubkey,            // 32 bytes
+    pub start_time: i64,         // 8 bytes
+    pub cliff_time: i64,         // 8 bytes
+    pub end_time: i64,           // 8 bytes
+    pub total_amount: u64,       // 8 bytes
+    pub released_amount: u64,    // 8 bytes
+    pub cancelable: bool,        // 1 byte
+    pub bump: u8,                // 1 byte
+    pub vault_bump: u8,          // 1 byte
+} // Total size: 8 + 139 = 147 bytes
+
+---
+
+## 3. FRONTEND REQUIREMENTS & USER EXPERIENCE
+
+- Theme Switching: Implement a seamless Light/Dark mode switcher with persistent preference storage (localStorage) and automatic system theme detection (prefers-color-scheme).
+- Help & Onboarding Module: Integrate an inline Help Modal / Tooltip guide explaining key vesting terms to end-users:
+  * Cliff Period: Time range before any token unlock begins.
+  * Linear Unlock Rate: Proportional token distribution per second.
+  * Revocability: Conditions under which unvested funds revert to the creator.
+- Wallet Connection & Feedback: Real-time state updates, transaction status indicators (Pending, Success, Failed), and accurate unlock progress bars based on cluster time.
+
+---
+
+## 4. SEALEVEL ATTACKS & PROGRAM SECURITY MITIGATIONS
+
+A. Temporal Math & Vesting Invariants:
+- Cliff Validation: Require start_time <= cliff_time and cliff_time <= end_time. Return custom error InvalidVestingSchedule on violation.
+- Linear Unlock Formula:
+  let current_time = Clock::get()?.unix_timestamp;
+  let vested_amount = if current_time < cliff_time {
+      0
+  } else if current_time >= end_time {
+      total_amount
+  } else {
+      let duration = end_time.checked_sub(start_time).ok_or(VestingError::MathOverflow)?;
+      let elapsed = current_time.checked_sub(start_time).ok_or(VestingError::MathOverflow)?;
+      (total_amount as u128)
+          .checked_mul(elapsed as u128)
+          .ok_or(VestingError::MathOverflow)?
+          .checked_div(duration as u128)
+          .ok_or(VestingError::MathOverflow)? as u64
+  };
+  let withdrawable = vested_amount.checked_sub(released_amount).ok_or(VestingError::MathOverflow)?;
+
+B. Signer & Authority Checks:
+- Beneficiary Claim Constraint: Ensure beneficiary is a Signer or explicit has_one = beneficiary validation is active on Claim.
+- Cancellation Enforcement: Only sender can invoke Cancel. Verify cancelable == true before revoking, transferring remaining unvested tokens to sender, vested tokens to beneficiary, and closing vault / vesting_account.
+
+C. Account Closing Safeguards:
+- Zero-out Data: Set close = sender on cancellation or completion to reclaim lamports and avoid re-initialization attacks.
+
+---
+
+## 5. TESTING & AUDITING REQUIREMENTS
+
+Execute security validation suites based on the official Solana Program Security Guide and Sealevel Attacks Guidelines:
+
+- Schedule Initialization Test: Verify state variables and PDA vault seed constraints.
+- Before-Cliff Claim Attempt: Assert 0 tokens are claimable when current_time < cliff_time.
+- Mid-Vesting Linear Math Test: Warp time to 50% duration and verify exact 50% token claimability.
+- Post-End Claim Test: Verify full total_amount - released_amount withdrawal when current_time >= end_time.
+- Revocation / Cancel Test: Validate proportional payout to beneficiary and refund of unvested balance to sender.
+- Security Attack Vectors Testing:
+  * Type Cosplay / Account Injection: Attempt executing instructions using fake state accounts with spoofed data discriminators.
+  * Unchecked Signers / Arbitrary CPI: Test account substitution vulnerabilities when executing transfer instructions.
+  * Duplicate Account Attack: Attempt passing duplicate accounts for beneficiary/sender within cancellation flows.
+  * Overflow & Precision Loss: Validate behavior under extreme boundary values (2^64 - 1 lamports and zero-duration intervals).

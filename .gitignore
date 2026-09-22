@@ -1,0 +1,69 @@
+# --- Rust / Cargo ---
+/target/
+**/target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# --- Anchor / Solana ---
+.anchor/
+test-ledger/
+.deployments/
+deployments/
+keys/
+*-keypair.json
+**/*-keypair.json
+.idl/
+target/deploy/
+target/idl/
+target/types/
+
+# --- Node / Next.js (frontend) ---
+node_modules/
+.pnp
+.pnp.js
+.next/
+out/
+build/
+dist/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+
+# --- Env & secrets ---
+.env
+.env.*
+!.env.example
+!.env.local.example
+
+# --- IDE / OS ---
+.idea/
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Logs & coverage ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+coverage/
+.nyc_output/
+
+# --- Tests / caches ---
+.cache/
+.parcel-cache/
+.eslintcache
+.prettiercache
+
+# --- Misc ---
+*.bak
+*.tmp
+.vercel/
+.DS_Store
