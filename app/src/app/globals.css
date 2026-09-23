@@ -144,3 +144,142 @@ button:hover {
   background: color-mix(in srgb, var(--surface) 80%, transparent);
   color: var(--muted);
 }
+
+.workspace {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 900px) {
+  .workspace {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
+  padding: 1.1rem 1.15rem 1.25rem;
+}
+
+.panel h2 {
+  margin: 0 0 0.85rem;
+  font-size: 1.1rem;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.field input {
+  font: inherit;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.45rem 0.55rem;
+}
+
+.field.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-error {
+  color: var(--banner-failed);
+  margin: 0.4rem 0;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.progress-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.progress-track {
+  height: 0.65rem;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+
+.progress-stats {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, #000 45%, transparent);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 40;
+}
+
+.modal {
+  width: min(520px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  padding: 1rem 1.15rem 1.25rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.help-term {
+  margin-top: 0.85rem;
+}
+
+.help-term h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.help-term p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}

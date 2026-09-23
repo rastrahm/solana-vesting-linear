@@ -18,8 +18,8 @@ Programa de vesting lineal de tokens en Solana (Anchor + SPL Token / Token-2022)
 | 4 | Instruction `cancel` | Revocación y cierre de cuentas | ✅ Completada |
 | 5 | Suite de seguridad Sealevel | Ataques type cosplay, CPI, overflow | ✅ Completada |
 | 6 | Frontend base Next.js | App Router, tema, wallet | ✅ Completada |
-| 7 | UI de vesting + Help | Formularios, progreso, modal ayuda | ⏳ Pendiente de autorización |
-| 8 | Integración E2E y hardenin | Deploy local, checklist final | ⏳ Pendiente |
+| 7 | UI de vesting + Help | Formularios, progreso, modal ayuda | ✅ Completada |
+| 8 | Integración E2E y hardenin | Deploy local, checklist final | ⏳ Pendiente de autorización |
 
 ---
 
@@ -187,9 +187,11 @@ cancelable, bump, vault_bump     → bool + u8 + u8
 - Feedback en tiempo real del estado on-chain.
 
 **Criterios de aceptación:**
-- [ ] Usuario puede crear, claim y cancel (si aplica) desde la UI.
-- [ ] Help explica los 3 conceptos requeridos.
-- [ ] Progress bar coherente con fórmula on-chain.
+- [x] Usuario puede crear, claim y cancel (si aplica) desde la UI.
+- [x] Help explica los 3 conceptos requeridos.
+- [x] Progress bar coherente con fórmula on-chain.
+
+**Notas:** Progreso usa Clock sysvar (`getClusterUnixTimestamp`); fórmula en `app/src/lib/vestingMath.ts` espejo de `math.rs`.
 
 ---
 
@@ -236,4 +238,4 @@ F6 puede empezar en paralelo tras F2 (IDL mínimo), pero F7 requiere F3–F4 est
 
 ## Próximo paso
 
-**Fase 6 completada.** Autoriza la **Fase 7** (UI create/claim/cancel + Help modal) para continuar.
+**Fase 7 completada.** Autoriza la **Fase 8** (E2E, checklist y hardening) para continuar.
