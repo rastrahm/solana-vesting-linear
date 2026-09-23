@@ -13,8 +13,8 @@ Programa de vesting lineal de tokens en Solana (Anchor + SPL Token / Token-2022)
 |------|--------|----------------------|--------|
 | 0 | Bootstrap del monorepo | Workspace Anchor + estructura | ✅ Completada |
 | 1 | Estado on-chain y errores | `VestingAccount`, errores, layout `repr(C)` | ✅ Completada |
-| 2 | Instruction `initialize` | Crear vesting + vault PDA + depósito | ⏳ Pendiente de autorización |
-| 3 | Instruction `claim` | Liberación lineal con `Clock` | ⏳ Pendiente |
+| 2 | Instruction `initialize` | Crear vesting + vault PDA + depósito | ✅ Completada |
+| 3 | Instruction `claim` | Liberación lineal con `Clock` | ⏳ Pendiente de autorización |
 | 4 | Instruction `cancel` | Revocación y cierre de cuentas | ⏳ Pendiente |
 | 5 | Suite de seguridad Sealevel | Ataques type cosplay, CPI, overflow | ⏳ Pendiente |
 | 6 | Frontend base Next.js | App Router, tema, wallet | ⏳ Pendiente |
@@ -93,9 +93,9 @@ cancelable, bump, vault_bump     → bool + u8 + u8
 - Validación temporal → `InvalidVestingSchedule`.
 
 **Criterios de aceptación:**
-- [ ] Estado persistido correcto tras `initialize`.
-- [ ] Vault con balance = `total_amount`.
-- [ ] Schedule inválido falla con error custom.
+- [x] Estado persistido correcto tras `initialize`.
+- [x] Vault con balance = `total_amount`.
+- [x] Schedule inválido falla con error custom.
 
 ---
 
@@ -229,4 +229,4 @@ F6 puede empezar en paralelo tras F2 (IDL mínimo), pero F7 requiere F3–F4 est
 
 ## Próximo paso
 
-**Fase 1 completada.** Autoriza la **Fase 2** (`initialize` real con vault + depósito) para continuar.
+**Fase 2 completada.** Autoriza la **Fase 3** (`claim` con `Clock` y fórmula lineal) para continuar.

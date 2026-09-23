@@ -1,7 +1,6 @@
 //! Programa Anchor: vesting lineal de tokens (SPL Token / Token-2022).
 //!
-//! Fase 1: estado `VestingAccount`, errores y seeds PDA.
-//! Las instrucciones reales de vesting llegan en fases 2–4.
+//! Fase 2: `initialize` crea schedule, vault PDA y deposita tokens.
 
 pub mod constants;
 pub mod error;
@@ -22,11 +21,23 @@ declare_id!("33KBw8PDvX4nSyhZHBg8xMZmpUvuHpxN7UhbsAyz7sba");
 pub mod solana_vesting_linear {
     use super::*;
 
-    /// @notice Smoke / bootstrap: confirma que el programa está desplegado.
-    /// @dev Sin cuentas ni estado. Sustituido en Fase 2 por el initialize real.
-    /// @param ctx Contexto vacío (`Initialize`).
-    /// @return Result<()> Ok si la instrucción se ejecutó.
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        initialize::handler(ctx)
+    /// @notice Crea un vesting lineal, inicializa el vault PDA y deposita `amount`.
+    /// @dev Valida schedule/amount; persiste `VestingAccount` y transfiere al vault.
+    /// @param ctx Cuentas Initialize (sender, beneficiary, mint, vesting, vault, …).
+    /// @param start_time Unix de inicio.
+    /// @param cliff_time Unix del cliff.
+    /// @param end_time Unix de fin.
+    /// @param amount Tokens a depositar (> 0).
+    /// @param cancelable Si el sender podrá cancelar.
+    /// @return Result<()> Ok si estado y depósito fueron exitosos.
+    pub fn initialize(
+        ctx: Context<Initialize>,
+        start_time: i64,
+        cliff_time: i64,
+        end_time: i64,
+        amount: u64,
+        cancelable: bool,
+    ) -> Result<()> {
+        initialize::handler(ctx, start_time, cliff_time, end_time, amount, cancelable)
     }
 }
