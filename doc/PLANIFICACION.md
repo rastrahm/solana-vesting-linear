@@ -14,8 +14,8 @@ Programa de vesting lineal de tokens en Solana (Anchor + SPL Token / Token-2022)
 | 0 | Bootstrap del monorepo | Workspace Anchor + estructura | ✅ Completada |
 | 1 | Estado on-chain y errores | `VestingAccount`, errores, layout `repr(C)` | ✅ Completada |
 | 2 | Instruction `initialize` | Crear vesting + vault PDA + depósito | ✅ Completada |
-| 3 | Instruction `claim` | Liberación lineal con `Clock` | ⏳ Pendiente de autorización |
-| 4 | Instruction `cancel` | Revocación y cierre de cuentas | ⏳ Pendiente |
+| 3 | Instruction `claim` | Liberación lineal con `Clock` | ✅ Completada |
+| 4 | Instruction `cancel` | Revocación y cierre de cuentas | ⏳ Pendiente de autorización |
 | 5 | Suite de seguridad Sealevel | Ataques type cosplay, CPI, overflow | ⏳ Pendiente |
 | 6 | Frontend base Next.js | App Router, tema, wallet | ⏳ Pendiente |
 | 7 | UI de vesting + Help | Formularios, progreso, modal ayuda | ⏳ Pendiente |
@@ -110,10 +110,12 @@ cancelable, bump, vault_bump     → bool + u8 + u8
 - Actualizar `released_amount`; opcional cierre si todo liberado.
 
 **Criterios de aceptación:**
-- [ ] Antes del cliff: claim falla o retira 0 (`NothingToClaim`).
-- [ ] A mitad de duración: claimable ≈ 50% (precisión documentada).
-- [ ] Tras `end_time`: claimable = `total_amount - released_amount`.
-- [ ] No se confía en timestamps del cliente.
+- [x] Antes del cliff: claim falla o retira 0 (`NothingToClaim`).
+- [x] A mitad de duración: claimable ≈ 50% (precisión documentada).
+- [x] Tras `end_time`: claimable = `total_amount - released_amount`.
+- [x] No se confía en timestamps del cliente.
+
+**Notas:** Mid-vesting en TS usa schedule relativo al Clock del cluster (±2s de tolerancia); exactitud 50% cubierta en unit test Rust (`math::mid_duration_is_exact_half`). Cierre de cuentas al 100% liberado se deja para Fase 4 / hardening.
 
 ---
 
@@ -229,4 +231,4 @@ F6 puede empezar en paralelo tras F2 (IDL mínimo), pero F7 requiere F3–F4 est
 
 ## Próximo paso
 
-**Fase 2 completada.** Autoriza la **Fase 3** (`claim` con `Clock` y fórmula lineal) para continuar.
+**Fase 3 completada.** Autoriza la **Fase 4** (`cancel` + cierre de vault/vesting) para continuar.
