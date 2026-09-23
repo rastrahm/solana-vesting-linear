@@ -1,20 +1,30 @@
-# Frontend (Next.js) — reservado
+# Frontend Next.js — Fase 6
 
-Esta carpeta alojará la app **Next.js (App Router)** a partir de la **Fase 6**.
+App Router con tema light/dark, wallet adapter Solana y feedback de transacciones.
 
-En Fase 0 no se implementa UI. Estructura prevista:
+## Requisitos
 
-```text
-app/
-  package.json          # workspace o app independiente
-  src/app/              # App Router
-    layout.tsx
-    page.tsx
-    error.tsx
-    not-found.tsx
-  src/components/       # Theme, Help, Progress, forms
-  src/lib/              # client del programa, Zod schemas
-  src/hooks/
+- Node ≥ 20.18 (`nvm use` en la raíz del monorepo)
+
+## Comandos
+
+```bash
+cd app
+cp .env.example .env.local   # opcional
+npm install
+npm run dev                  # http://localhost:3000
+npm test                     # Vitest + RTL
+npm run build
 ```
 
-Stack previsto: TypeScript estricto, Zod, Vitest + RTL, wallet adapter Solana, tema light/dark + Help modal.
+## Alcance Fase 6
+
+- Theme persistente (`localStorage` + `prefers-color-scheme`)
+- Wallet (Phantom) vía `@solana/wallet-adapter-*`
+- Banner Pending / Success / Failed
+- `error.tsx` / `not-found.tsx`
+- Zod schemas base (`src/lib/schemas.ts`)
+
+## Fase 7 (siguiente)
+
+Formularios create/claim/cancel, Help modal y progress bar on-chain.

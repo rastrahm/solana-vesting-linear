@@ -17,8 +17,8 @@ Programa de vesting lineal de tokens en Solana (Anchor + SPL Token / Token-2022)
 | 3 | Instruction `claim` | Liberación lineal con `Clock` | ✅ Completada |
 | 4 | Instruction `cancel` | Revocación y cierre de cuentas | ✅ Completada |
 | 5 | Suite de seguridad Sealevel | Ataques type cosplay, CPI, overflow | ✅ Completada |
-| 6 | Frontend base Next.js | App Router, tema, wallet | ⏳ Pendiente de autorización |
-| 7 | UI de vesting + Help | Formularios, progreso, modal ayuda | ⏳ Pendiente |
+| 6 | Frontend base Next.js | App Router, tema, wallet | ✅ Completada |
+| 7 | UI de vesting + Help | Formularios, progreso, modal ayuda | ⏳ Pendiente de autorización |
 | 8 | Integración E2E y hardenin | Deploy local, checklist final | ⏳ Pendiente |
 
 ---
@@ -168,9 +168,11 @@ cancelable, bump, vault_bump     → bool + u8 + u8
 - JSDoc en componentes/hooks.
 
 **Criterios de aceptación:**
-- [ ] Switch de tema persistente.
-- [ ] Wallet conecta en localnet/devnet config.
-- [ ] Cero `any`; tests de interacción por rol/aria.
+- [x] Switch de tema persistente.
+- [x] Wallet conecta en localnet/devnet config.
+- [x] Cero `any`; tests de interacción por rol/aria.
+
+**Artefactos:** `app/` (Next.js 15 App Router). Comandos: `cd app && npm install && npm run dev` / `npm test`.
 
 ---
 
@@ -234,4 +236,4 @@ F6 puede empezar en paralelo tras F2 (IDL mínimo), pero F7 requiere F3–F4 est
 
 ## Próximo paso
 
-**Fase 5 completada.** Autoriza la **Fase 6** (frontend Next.js base: tema + wallet) para continuar.
+**Fase 6 completada.** Autoriza la **Fase 7** (UI create/claim/cancel + Help modal) para continuar.

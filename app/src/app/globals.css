@@ -1,0 +1,146 @@
+:root {
+  --bg: #f4f6f3;
+  --fg: #1a211c;
+  --muted: #5a675e;
+  --accent: #1f6b4a;
+  --accent-fg: #f4f6f3;
+  --border: #c5d0c8;
+  --banner-pending: #8a6d1d;
+  --banner-success: #1f6b4a;
+  --banner-failed: #8b2e2e;
+  --surface: #ffffff;
+  --font: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+html[data-theme="dark"] {
+  --bg: #121712;
+  --fg: #e8eee9;
+  --muted: #9aab9f;
+  --accent: #3dba7e;
+  --accent-fg: #0c120e;
+  --border: #2a352e;
+  --banner-pending: #d4b84a;
+  --banner-success: #3dba7e;
+  --banner-failed: #e07070;
+  --surface: #1a221c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: radial-gradient(
+      1200px 600px at 10% -10%,
+      color-mix(in srgb, var(--accent) 18%, transparent),
+      transparent 60%
+    ),
+    var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+}
+
+a {
+  color: var(--accent);
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.brand {
+  font-size: 1.35rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+button,
+.wallet-adapter-button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--fg);
+  border-radius: 0.4rem;
+  padding: 0.45rem 0.8rem;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+.hero p {
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 40rem;
+}
+
+.cluster-pill {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.tx-banner {
+  margin-top: 1.5rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.tx-banner[data-status="pending"] {
+  border-color: var(--banner-pending);
+}
+
+.tx-banner[data-status="success"] {
+  border-color: var(--banner-success);
+}
+
+.tx-banner[data-status="failed"] {
+  border-color: var(--banner-failed);
+}
+
+.tx-banner p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+}
+
+.note {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  color: var(--muted);
+}
