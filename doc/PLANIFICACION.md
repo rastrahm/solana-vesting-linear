@@ -16,8 +16,8 @@ Programa de vesting lineal de tokens en Solana (Anchor + SPL Token / Token-2022)
 | 2 | Instruction `initialize` | Crear vesting + vault PDA + depósito | ✅ Completada |
 | 3 | Instruction `claim` | Liberación lineal con `Clock` | ✅ Completada |
 | 4 | Instruction `cancel` | Revocación y cierre de cuentas | ✅ Completada |
-| 5 | Suite de seguridad Sealevel | Ataques type cosplay, CPI, overflow | ⏳ Pendiente de autorización |
-| 6 | Frontend base Next.js | App Router, tema, wallet | ⏳ Pendiente |
+| 5 | Suite de seguridad Sealevel | Ataques type cosplay, CPI, overflow | ✅ Completada |
+| 6 | Frontend base Next.js | App Router, tema, wallet | ⏳ Pendiente de autorización |
 | 7 | UI de vesting + Help | Formularios, progreso, modal ayuda | ⏳ Pendiente |
 | 8 | Integración E2E y hardenin | Deploy local, checklist final | ⏳ Pendiente |
 
@@ -149,9 +149,10 @@ cancelable, bump, vault_bump     → bool + u8 + u8
 5. Reinits tras close.
 
 **Criterios de aceptación:**
-- [ ] Todos los vectores fallan de forma segura (assert de error).
-- [ ] Documentación breve de cada mitigación en `doc/` o comentarios `///`.
+- [x] Todos los vectores fallan de forma segura (assert de error).
+- [x] Documentación breve de cada mitigación en `doc/` o comentarios `///`.
 
+**Artefactos:** `tests/sealevel_security.ts`, `doc/SEALEVEL_MITIGATIONS.md`, tests Rust overflow en `math.rs`.
 ---
 
 ## Fase 6 — Frontend base Next.js
@@ -233,4 +234,4 @@ F6 puede empezar en paralelo tras F2 (IDL mínimo), pero F7 requiere F3–F4 est
 
 ## Próximo paso
 
-**Fase 4 completada.** Autoriza la **Fase 5** (suite de seguridad Sealevel) para continuar.
+**Fase 5 completada.** Autoriza la **Fase 6** (frontend Next.js base: tema + wallet) para continuar.

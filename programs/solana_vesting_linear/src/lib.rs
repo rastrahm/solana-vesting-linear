@@ -1,6 +1,6 @@
 //! Programa Anchor: vesting lineal de tokens (SPL Token / Token-2022).
 //!
-//! Fase 4: `cancel` revoca, reparte tokens y cierra vault + estado.
+//! Fase 5: suite Sealevel (tests); instrucciones initialize / claim / cancel.
 
 pub mod constants;
 pub mod error;
@@ -14,6 +14,9 @@ pub use constants::*;
 pub use error::*;
 pub use instructions::*;
 pub use state::*;
+
+// Re-export de módulos de instrucción: requerido por `#[program]` (client accounts).
+pub use instructions::{cancel, claim, initialize};
 
 declare_id!("33KBw8PDvX4nSyhZHBg8xMZmpUvuHpxN7UhbsAyz7sba");
 

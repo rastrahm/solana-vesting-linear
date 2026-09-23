@@ -4,6 +4,6 @@ pub mod cancel;
 pub mod claim;
 pub mod initialize;
 
-pub use cancel::Cancel;
-pub use claim::Claim;
-pub use initialize::Initialize;
+pub use cancel::*;
+pub use claim::*;
+pub use initialize::*;
