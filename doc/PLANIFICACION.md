@@ -12,8 +12,8 @@ Programa de vesting lineal de tokens en Solana (Anchor + SPL Token / Token-2022)
 | Fase | Nombre | Entregable principal | Estado |
 |------|--------|----------------------|--------|
 | 0 | Bootstrap del monorepo | Workspace Anchor + estructura | ✅ Completada |
-| 1 | Estado on-chain y errores | `VestingAccount`, errores, layout `repr(C)` | ⏳ Pendiente de autorización |
-| 2 | Instruction `initialize` | Crear vesting + vault PDA + depósito | ⏳ Pendiente |
+| 1 | Estado on-chain y errores | `VestingAccount`, errores, layout `repr(C)` | ✅ Completada |
+| 2 | Instruction `initialize` | Crear vesting + vault PDA + depósito | ⏳ Pendiente de autorización |
 | 3 | Instruction `claim` | Liberación lineal con `Clock` | ⏳ Pendiente |
 | 4 | Instruction `cancel` | Revocación y cierre de cuentas | ⏳ Pendiente |
 | 5 | Suite de seguridad Sealevel | Ataques type cosplay, CPI, overflow | ⏳ Pendiente |
@@ -69,9 +69,13 @@ cancelable, bump, vault_bump     → bool + u8 + u8
   - Vault: `["vault", vesting_account.key()]`.
 
 **Criterios de aceptación:**
-- [ ] `VestingAccount::INIT_SPACE == 139`.
-- [ ] Campos ordenados por alineación (32 → 8 → 1).
-- [ ] Errores documentados con `///`.
+- [x] `VestingAccount::INIT_SPACE == 139`.
+- [x] Campos ordenados por alineación (32 → 8 → 1).
+- [x] Errores documentados con `///`.
+
+**Seeds acordadas:**
+- Vesting: `["vesting", sender, beneficiary, mint]`
+- Vault: `["vault", vesting_account.key()]`
 
 **No incluye:** instrucciones `initialize` / `claim` / `cancel` completas.
 
@@ -225,4 +229,4 @@ F6 puede empezar en paralelo tras F2 (IDL mínimo), pero F7 requiere F3–F4 est
 
 ## Próximo paso
 
-**Fase 0 completada.** Autoriza la **Fase 1** (estado on-chain + errores) para continuar.
+**Fase 1 completada.** Autoriza la **Fase 2** (`initialize` real con vault + depósito) para continuar.
