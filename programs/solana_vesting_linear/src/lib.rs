@@ -1,10 +1,11 @@
 //! Programa Anchor: vesting lineal de tokens (SPL Token / Token-2022).
 //!
-//! Fase 2: `initialize` crea schedule, vault PDA y deposita tokens.
+//! Fase 3: `claim` libera tokens según Clock y fórmula lineal.
 
 pub mod constants;
 pub mod error;
 pub mod instructions;
+pub mod math;
 pub mod state;
 
 use anchor_lang::prelude::*;
@@ -39,5 +40,13 @@ pub mod solana_vesting_linear {
         cancelable: bool,
     ) -> Result<()> {
         initialize::handler(ctx, start_time, cliff_time, end_time, amount, cancelable)
+    }
+
+    /// @notice Beneficiary reclama tokens ya vestidos (`vested - released`).
+    /// @dev Tiempo solo desde `Clock` sysvar; no acepta timestamp del cliente.
+    /// @param ctx Cuentas Claim (beneficiary signer, vesting, vault, ATA beneficiary, mint).
+    /// @return Result<()> Ok si la transferencia y el update de `released_amount` fueron exitosos.
+    pub fn claim(ctx: Context<Claim>) -> Result<()> {
+        claim::handler(ctx)
     }
 }
