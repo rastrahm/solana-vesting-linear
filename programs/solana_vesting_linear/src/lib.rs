@@ -1,6 +1,6 @@
 //! Programa Anchor: vesting lineal de tokens (SPL Token / Token-2022).
 //!
-//! Fase 3: `claim` libera tokens según Clock y fórmula lineal.
+//! Fase 4: `cancel` revoca, reparte tokens y cierra vault + estado.
 
 pub mod constants;
 pub mod error;
@@ -48,5 +48,13 @@ pub mod solana_vesting_linear {
     /// @return Result<()> Ok si la transferencia y el update de `released_amount` fueron exitosos.
     pub fn claim(ctx: Context<Claim>) -> Result<()> {
         claim::handler(ctx)
+    }
+
+    /// @notice Sender cancela un vesting revocable y cierra vault + estado.
+    /// @dev Vested → beneficiary; unvested → sender; lamports de cierre → sender.
+    /// @param ctx Cuentas Cancel (sender signer, beneficiary, vesting, vault, ATAs, mint).
+    /// @return Result<()> Ok si payouts y cierres fueron exitosos.
+    pub fn cancel(ctx: Context<Cancel>) -> Result<()> {
+        cancel::handler(ctx)
     }
 }
