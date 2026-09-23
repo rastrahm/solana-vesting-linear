@@ -1,6 +1,7 @@
 //! Programa Anchor: vesting lineal de tokens (SPL Token / Token-2022).
 //!
-//! Fase 0: esqueleto compilable. La lógica de vesting llega en fases posteriores.
+//! Fase 1: estado `VestingAccount`, errores y seeds PDA.
+//! Las instrucciones reales de vesting llegan en fases 2–4.
 
 pub mod constants;
 pub mod error;
@@ -10,7 +11,9 @@ pub mod state;
 use anchor_lang::prelude::*;
 
 pub use constants::*;
+pub use error::*;
 pub use instructions::*;
+pub use state::*;
 
 declare_id!("33KBw8PDvX4nSyhZHBg8xMZmpUvuHpxN7UhbsAyz7sba");
 
