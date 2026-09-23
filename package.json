@@ -9,7 +9,14 @@
     "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
     "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
     "ts-mocha": "ts-mocha",
-    "test": "anchor test"
+    "build": "anchor build",
+    "test": "anchor test",
+    "test:app": "npm --prefix app test",
+    "build:app": "npm --prefix app run build",
+    "test:all": "npm test && npm run test:app",
+    "sync:idl": "bash scripts/sync-idl.sh",
+    "deploy:localnet": "bash scripts/localnet-deploy.sh",
+    "dev:app": "npm --prefix app run dev"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.31.1",

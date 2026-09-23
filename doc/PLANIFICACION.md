@@ -19,7 +19,7 @@ Programa de vesting lineal de tokens en Solana (Anchor + SPL Token / Token-2022)
 | 5 | Suite de seguridad Sealevel | Ataques type cosplay, CPI, overflow | ✅ Completada |
 | 6 | Frontend base Next.js | App Router, tema, wallet | ✅ Completada |
 | 7 | UI de vesting + Help | Formularios, progreso, modal ayuda | ✅ Completada |
-| 8 | Integración E2E y hardenin | Deploy local, checklist final | ⏳ Pendiente de autorización |
+| 8 | Integración E2E y hardenin | Deploy local, checklist final | ✅ Completada |
 
 ---
 
@@ -206,9 +206,15 @@ cancelable, bump, vault_bump     → bool + u8 + u8
 - Ajuste compute budget si hace falta.
 
 **Criterios de aceptación:**
-- [ ] Flujo feliz E2E documentado.
-- [ ] `anchor test` + tests frontend verdes.
-- [ ] Sin keys ni `.env` en el repo.
+- [x] Flujo feliz E2E documentado.
+- [x] `anchor test` + tests frontend verdes.
+- [x] Sin keys ni `.env` en el repo.
+
+**Artefactos Fase 8:**
+- `README.md` (raíz)
+- `doc/E2E.md`, `doc/CHECKLIST.md`
+- `scripts/sync-idl.sh`, `scripts/localnet-deploy.sh`
+- Scripts npm: `sync:idl`, `deploy:localnet`, `test:all`, `dev:app`
 
 ---
 
@@ -238,4 +244,5 @@ F6 puede empezar en paralelo tras F2 (IDL mínimo), pero F7 requiere F3–F4 est
 
 ## Próximo paso
 
-**Fase 7 completada.** Autoriza la **Fase 8** (E2E, checklist y hardening) para continuar.
+**Plan completo (Fases 0–8).** Usá `doc/E2E.md` + `doc/CHECKLIST.md` para validar releases.
+
