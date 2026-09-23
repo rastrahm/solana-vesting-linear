@@ -71,7 +71,6 @@ mod tests {
 
     #[test]
     fn mid_duration_is_exact_half() {
-        // start=0, end=1000, now=500 → 50% de 1_000_000
         let vested = vested_amount(500, 0, 0, 1000, 1_000_000).unwrap();
         assert_eq!(vested, 500_000);
     }
@@ -83,7 +82,31 @@ mod tests {
 
     #[test]
     fn zero_duration_mid_stream_errors() {
-        // now en (cliff, end) con duration = end - start = 0 → MathOverflow en div.
         assert!(vested_amount(75, 100, 50, 100, 1_000).is_err());
+    }
+
+    #[test]
+    fn u64_max_mid_duration_no_overflow() {
+        let half = vested_amount(500, 0, 0, 1000, u64::MAX).unwrap();
+        assert_eq!(half, u64::MAX / 2);
+    }
+
+    #[test]
+    fn u64_max_at_end_is_total() {
+        assert_eq!(
+            vested_amount(1000, 0, 0, 1000, u64::MAX).unwrap(),
+            u64::MAX
+        );
+    }
+
+    #[test]
+    fn withdrawable_underflow_errors() {
+        assert!(withdrawable_amount(100, 200).is_err());
+    }
+
+    #[test]
+    fn zero_duration_at_or_after_end_returns_total() {
+        assert_eq!(vested_amount(100, 100, 100, 100, 999).unwrap(), 999);
+        assert_eq!(vested_amount(101, 100, 100, 100, 999).unwrap(), 999);
     }
 }
