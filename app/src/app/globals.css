@@ -246,7 +246,7 @@ button:hover {
 }
 
 .modal {
-  width: min(520px, 100%);
+  width: min(600px, 100%);
   max-height: 90vh;
   overflow: auto;
   background: var(--surface);
@@ -278,8 +278,36 @@ button:hover {
   font-size: 1rem;
 }
 
-.help-term p {
-  margin: 0;
+.help-term h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.help-icon {
+  font-size: 1.2rem;
+}
+
+.help-body p,
+.help-body ul,
+.help-body ol {
+  margin: 0 0 0.5rem;
   color: var(--muted);
-  line-height: 1.5;
+  line-height: 1.55;
+}
+
+.help-body ul,
+.help-body ol {
+  padding-left: 1.2rem;
+}
+
+.help-body strong {
+  color: var(--fg);
+}
+
+.help-example {
+  padding: 0.5rem 0.7rem;
+  border-left: 3px solid var(--border);
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+  border-radius: 0.3rem;
 }
