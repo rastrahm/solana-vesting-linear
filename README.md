@@ -1,71 +1,34 @@
 # solana-vesting-linear
 
+Linear token vesting on Solana (Anchor + SPL Token / Token-2022) with cliff, revocation and a Next.js UI.  
 Vesting lineal de tokens en Solana (Anchor + SPL Token / Token-2022) con cliff, revocación y UI Next.js.
 
-## Stack
+## Choose your language / Elige tu idioma
 
-| Capa | Tecnología |
-|------|------------|
-| On-chain | Rust, Anchor 0.31, `token_interface` |
-| Tiempo | `Clock` sysvar |
-| Tests | Anchor TS + suite Sealevel |
-| Frontend | Next.js 15 App Router, Zod, Vitest + RTL |
+- 🇬🇧 **English:** [README-EN.md](README-EN.md)
+- 🇪🇸 **Español:** [README-ES.md](README-ES.md)
 
-## Requisitos
+## Documentation index / Índice de documentación
 
-- Node ≥ 20.18 (`nvm use` — ver `.nvmrc`)
-- Rust / Solana CLI / Anchor 0.31+
-- Platform-tools SBF **v1.52** (definido en `programs/.../Cargo.toml`)
+| Document / Documento | English | Español |
+|----------------------|---------|---------|
+| Planning / Planificación (phases 0–8) | [PLANIFICACION-EN.md](doc/PLANIFICACION-EN.md) | [PLANIFICACION-ES.md](doc/PLANIFICACION-ES.md) |
+| E2E happy path / Flujo E2E feliz | [E2E-EN.md](doc/E2E-EN.md) | [E2E-ES.md](doc/E2E-ES.md) |
+| Security + a11y checklist / Checklist seguridad + a11y | [CHECKLIST-EN.md](doc/CHECKLIST-EN.md) | [CHECKLIST-ES.md](doc/CHECKLIST-ES.md) |
+| Sealevel mitigations / Mitigaciones Sealevel | [SEALEVEL_MITIGATIONS-EN.md](doc/SEALEVEL_MITIGATIONS-EN.md) | [SEALEVEL_MITIGATIONS-ES.md](doc/SEALEVEL_MITIGATIONS-ES.md) |
+| Class diagram / Diagrama de clases | [diagrama-clases-EN.md](doc/diagrama-clases-EN.md) | [diagrama-clases-ES.md](doc/diagrama-clases-ES.md) |
+| Flow diagram / Diagrama de flujo | [diagrama-flujo-EN.md](doc/diagrama-flujo-EN.md) | [diagrama-flujo-ES.md](doc/diagrama-flujo-ES.md) |
+| Process flowchart / Flujograma | [flujograma-EN.md](doc/flujograma-EN.md) | [flujograma-ES.md](doc/flujograma-ES.md) |
 
-## Comandos rápidos
+Frontend: [app/README.md](app/README.md)
 
-```bash
-# Dependencias del workspace Anchor
-npm install
-
-# Build + tests on-chain (levanta validator)
-npm test
-
-# Sync IDL → app
-bash scripts/sync-idl.sh
-
-# UI
-cd app
-cp .env.example .env.local
-npm install
-npm run dev      # http://localhost:3000
-npm test
-npm run build
-```
-
-### Deploy localnet (validator ya corriendo)
+## Quick start / Inicio rápido
 
 ```bash
-solana-test-validator --reset   # otra terminal
-bash scripts/localnet-deploy.sh
+npm install && npm test                      # on-chain build + tests
+solana-test-validator --reset                # other terminal / otra terminal
+bash scripts/localnet-deploy.sh              # deploy + IDL sync
+cd app && cp .env.example .env.local && npm install && npm run dev   # http://localhost:3000
 ```
 
-## Documentación
-
-| Doc | Contenido |
-|-----|-----------|
-| [doc/PLANIFICACION.md](doc/PLANIFICACION.md) | Fases 0–8 |
-| [doc/E2E.md](doc/E2E.md) | Flujo feliz deploy → UI |
-| [doc/CHECKLIST.md](doc/CHECKLIST.md) | Seguridad + a11y |
-| [doc/SEALEVEL_MITIGATIONS.md](doc/SEALEVEL_MITIGATIONS.md) | Vectores Sealevel |
-| [doc/diagrama-clases.md](doc/diagrama-clases.md) | Clases |
-| [doc/diagrama-flujo.md](doc/diagrama-flujo.md) | Decisiones on-chain |
-| [doc/flujograma.md](doc/flujograma.md) | Actores / procesos |
-| [app/README.md](app/README.md) | Frontend |
-
-## Instrucciones on-chain
-
-- `initialize` — crea schedule + vault PDA + depósito
-- `claim` — beneficiary retira `vested − released`
-- `cancel` — sender revoca (si `cancelable`), cierra cuentas
-
-Program ID localnet: `33KBw8PDvX4nSyhZHBg8xMZmpUvuHpxN7UhbsAyz7sba`
-
-## Seguridad
-
-No commitear `*-keypair.json`, `.env` ni wallets. El `.gitignore` ya los excluye.
+Localnet Program ID: `33KBw8PDvX4nSyhZHBg8xMZmpUvuHpxN7UhbsAyz7sba`

@@ -1,6 +1,6 @@
 /**
  * @description Suite Sealevel (Fase 5): vectores de ataque deben fallar de forma segura.
- * @see doc/SEALEVEL_MITIGATIONS.md
+ * @see doc/SEALEVEL_MITIGATIONS-EN.md
  */
 import * as anchor from "@coral-xyz/anchor";
 import { Program, BN, AnchorError } from "@coral-xyz/anchor";
