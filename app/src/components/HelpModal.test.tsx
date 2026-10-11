@@ -12,9 +12,23 @@ describe("HelpModal", () => {
     expect(
       screen.getByRole("dialog", { name: /ayuda: conceptos de vesting/i })
     ).toBeInTheDocument();
-    expect(screen.getByText(/Cliff Period/i)).toBeInTheDocument();
-    expect(screen.getByText(/Linear Unlock Rate/i)).toBeInTheDocument();
-    expect(screen.getByText(/Revocability/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Cliff Period/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Linear Unlock Rate/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Revocability/i })
+    ).toBeInTheDocument();
+  });
+
+  it("incluye guía paso a paso y ejemplos simples", () => {
+    render(<HelpModal open onClose={() => undefined} />);
+    expect(
+      screen.getByRole("heading", { name: /paso a paso/i })
+    ).toBeInTheDocument();
+    expect(screen.getByText(/1000 tokens/i)).toBeInTheDocument();
   });
 
   it("se cierra con el botón accesible", async () => {

@@ -1,6 +1,6 @@
 # Checklist — seguridad y accesibilidad
 
-Usar antes de merge / release. Complementa `doc/SEALEVEL_MITIGATIONS.md`.
+Usar antes de merge / release. Complementa [`SEALEVEL_MITIGATIONS-ES.md`](SEALEVEL_MITIGATIONS-ES.md).
 
 ## Seguridad on-chain
 

@@ -152,7 +152,7 @@ cancelable, bump, vault_bump     → bool + u8 + u8
 - [x] Todos los vectores fallan de forma segura (assert de error).
 - [x] Documentación breve de cada mitigación en `doc/` o comentarios `///`.
 
-**Artefactos:** `tests/sealevel_security.ts`, `doc/SEALEVEL_MITIGATIONS.md`, tests Rust overflow en `math.rs`.
+**Artefactos:** `tests/sealevel_security.ts`, `doc/SEALEVEL_MITIGATIONS-ES.md`, tests Rust overflow en `math.rs`.
 ---
 
 ## Fase 6 — Frontend base Next.js
@@ -211,8 +211,8 @@ cancelable, bump, vault_bump     → bool + u8 + u8
 - [x] Sin keys ni `.env` en el repo.
 
 **Artefactos Fase 8:**
-- `README.md` (raíz)
-- `doc/E2E.md`, `doc/CHECKLIST.md`
+- `README.md` (índice raíz), `README-ES.md` / `README-EN.md`
+- `doc/E2E-ES.md`, `doc/CHECKLIST-ES.md`
 - `scripts/sync-idl.sh`, `scripts/localnet-deploy.sh`
 - Scripts npm: `sync:idl`, `deploy:localnet`, `test:all`, `dev:app`
 
@@ -244,5 +244,5 @@ F6 puede empezar en paralelo tras F2 (IDL mínimo), pero F7 requiere F3–F4 est
 
 ## Próximo paso
 
-**Plan completo (Fases 0–8).** Usá `doc/E2E.md` + `doc/CHECKLIST.md` para validar releases.
+**Plan completo (Fases 0–8).** Usá [`E2E-ES.md`](E2E-ES.md) + [`CHECKLIST-ES.md`](CHECKLIST-ES.md) para validar releases.
 

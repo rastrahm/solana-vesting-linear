@@ -30,7 +30,7 @@ export function HomeClient() {
             aria-label="Abrir ayuda de vesting"
             onClick={() => setHelpOpen(true)}
           >
-            Help
+            ❓ Ayuda
           </button>
           <ThemeToggle />
           <WalletButton />
